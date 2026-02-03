@@ -3,41 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khu Vườn Tâm Hồn</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Góc Nhỏ Bí Mật</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="left-sidebar" class="sidebar collapsed">
-        <button id="sidebar-toggle">
+        <div class="toggle-tab" id="sidebar-toggle">
             <i class="fa-solid fa-chevron-right"></i>
-        </button>
-        
+        </div>
         <div class="sidebar-content">
-            <h3>Menu</h3>
-            <div class="dummy-widget">Widget 1</div>
-            <div class="dummy-widget">Widget 2</div>
+            <h3 style="color: white; text-align: center; margin-bottom: 20px;">Menu</h3>
+            <div class="menu-item"><i class="fa-solid fa-house"></i> Trang chủ</div>
+            <div class="menu-item"><i class="fa-solid fa-music"></i> Nhạc chill</div>
+            <div class="menu-item"><i class="fa-solid fa-book"></i> Nhật ký</div>
+            <div class="menu-item"><i class="fa-solid fa-star"></i> Điều ước</div>
         </div>
     </div>
 
     <div class="page-content-wrapper">
         
-        <section class="hero-section">
+        <section class="hero-bg">
             
-            <div class="hero-image-part">
-                <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=2070&auto=format&fit=crop" alt="Background">
-            </div>
+            <input type="file" id="bg-upload" accept="image/*" hidden>
 
-            <div class="hero-text-part">
-                <div class="hero-content">
-                    <h1 class="hero-title">Khu Vườn <br><span>Bình Yên</span></h1>
-                    <p class="hero-desc">
-                        Nơi những âu lo dừng lại sau cánh cửa,<br>
-                        để tâm hồn được tưới mát bằng sự dịu dàng.
+            <div class="landscape-container" id="landscape-box">
+
+                <div class="edit-overlay" id="edit-bg-btn">
+                    <button class="edit-btn">
+                        <i class="fa-solid fa-pen"></i> Đổi hình nền
+                    </button>
+                </div>
+
+                <div class="hills-container">
+                    <div class="hill hill-1"></div>
+                    <div class="hill hill-2"></div>
+                    <div class="sheep"><i class="fa-solid fa-sheep"></i></div>
+                </div>
+
+                <div class="hero-center-content">
+                    <div class="title-with-star">
+                        <i class="fa-regular fa-star star-decor"></i>
+                        <h1>Góc Nhỏ Bí Mật</h1>
+                    </div>
+                    
+                    <p class="hero-text">
+                        Nơi cất giữ những bí mật nhỏ xíu xiu.<br>
+                        Thả trôi nỗi buồn theo mây gió...
                     </p>
                 </div>
+
+                <div class="black-cat">
+                    <img src="https://media.tenor.com/w4p83aW1zC4AAAAi/cat-black-cat.gif" alt="Black Cat">
+                </div>
+
+            </div>
+            
+            <div class="corner-star">
+                <i class="fa-solid fa-star"></i>
             </div>
 
         </section>

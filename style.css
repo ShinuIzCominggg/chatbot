@@ -1,148 +1,155 @@
 :root {
-    --primary-blue: #a6c1ee; /* Màu xanh chủ đạo (sửa ở đây) */
-    --text-color: #5d54a4;
+    --bg-blue: #dcf2fd;     /* Màu nền bao quanh khung */
+    --hill-green: #90be28;  /* Màu đồi */
+    --sidebar-blue: #5d6d8c;
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
+
+* { box-sizing: border-box; }
 
 body {
-    margin: 0; font-family: 'Nunito', sans-serif;
-    overflow-x: hidden; /* Chặn cuộn ngang */
+    margin: 0; font-family: 'Patrick Hand', cursive;
+    overflow-x: hidden; background-color: #fff;
 }
 
-/* --- SIDEBAR BÊN TRÁI --- */
+/* --- SIDEBAR --- */
 .sidebar {
-    position: fixed;
-    top: 0; left: 0;
-    height: 100vh;
-    background: white;
-    box-shadow: 2px 0 15px rgba(0,0,0,0.1);
-    z-index: 1000; /* Cao hơn nền, thấp hơn nút chat */
-    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    overflow: hidden;
+    position: fixed; top: 0; left: 0; height: 100vh;
+    background: var(--sidebar-blue); width: 60px;
+    z-index: 1000; box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+    border-radius: 0 10px 10px 0;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), width 0.3s ease;
 }
 
-/* Trạng thái đóng (Peak ra 1 tí) */
-.sidebar.collapsed { width: 20px; } /* M muốn peak nhiều hơn thì tăng số này */
-/* Trạng thái mở */
-.sidebar.expanded { width: 280px; }
+.sidebar.expanded { width: 250px; }
 
-#sidebar-toggle {
-    position: absolute;
-    top: 50%; right: -15px; /* Để nút nằm ở mép */
-    transform: translateY(-50%);
-    width: 30px; height: 30px;
-    border-radius: 50%; border: none;
-    background: var(--text-color); color: white;
-    cursor: pointer;
-    z-index: 10;
-    display: flex; justify-content: center; align-items: center;
-    transition: 0.3s;
+/* Ẩn Sidebar khi scroll */
+.sidebar.hidden-by-scroll {
+    transform: translateX(-100%); /* Trượt hẳn ra ngoài màn hình */
 }
 
-/* Khi mở ra thì xoay mũi tên */
-.sidebar.expanded #sidebar-toggle { transform: translateY(-50%) rotate(180deg); right: 10px; }
-.sidebar.collapsed:hover { width: 30px; } /* Hover vào mép thì thò ra xíu mời gọi */
+.toggle-tab {
+    position: absolute; top: 50%; right: -25px;
+    width: 50px; height: 50px; background: var(--sidebar-blue);
+    border-radius: 50%; transform: translateY(-50%);
+    cursor: pointer; display: flex; justify-content: flex-end; align-items: center;
+    padding-right: 8px; color: white; z-index: -1;
+}
 
 .sidebar-content {
-    padding: 20px; width: 280px; /* Cố định width nội dung để không bị co */
-    opacity: 0; transition: 0.2s;
+    opacity: 0; padding: 20px; transition: 0.2s;
+    display: flex; flex-direction: column; gap: 15px; color: white;
+    white-space: nowrap; overflow: hidden;
 }
 .sidebar.expanded .sidebar-content { opacity: 1; transition-delay: 0.2s; }
 
-.dummy-widget {
-    background: #f0f2f5; padding: 10px; margin-top: 10px; border-radius: 8px;
+.menu-item {
+    padding: 12px; background: rgba(255,255,255,0.1); border-radius: 10px;
+    cursor: pointer; font-family: 'Nunito', sans-serif; display: flex; align-items: center; gap: 10px;
 }
+.menu-item:hover { background: rgba(255,255,255,0.3); }
 
-/* --- HERO SECTION (GỐC) --- */
-.hero-section {
-    height: 100vh; /* Chiếm full màn hình đầu tiên */
-    width: 100%;
-    display: flex; /* Chia cột 40-60 */
+/* --- HERO SECTION --- */
+.hero-bg {
+    height: 100vh; width: 100%;
+    background-color: var(--bg-blue); /* Màu xanh nhạt bao quanh */
+    display: flex; justify-content: center; align-items: center;
     position: relative;
 }
 
-/* Phần Ảnh (40%) */
-.hero-image-part {
-    flex: 0 0 40%; /* Cố định 40% */
-    height: 100%;
-    overflow: hidden;
+/* KHUNG CẢNH CANVA (CONTAINER ẢNH) */
+.landscape-container {
+    width: 800px; height: 500px;
     position: relative;
-}
-.hero-image-part img {
-    width: 100%; height: 100%;
-    object-fit: cover; /* Ảnh tự cắt cho vừa khung */
-}
-
-/* Phần Màu Xanh & Chữ (60%) */
-.hero-text-part {
-    flex: 0 0 60%; /* Cố định 60% */
-    height: 100%;
-    background-color: var(--primary-blue); /* Màu xanh chỉnh được */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
+    background-color: #fff;
+    /* Ảnh nền mặc định bạn yêu cầu */
+    background-image: url('https://i.pinimg.com/736x/9f/3f/fb/9f3ffb7021f9dc67d0d82affbd8952d3.jpg');
+    background-size: cover; background-position: center;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    overflow: hidden; /* Cắt mọi thứ thừa ra ngoài khung này */
+    transition: transform 0.3s ease;
 }
 
-/* Nội dung chữ */
-.hero-content {
-    color: white;
-    padding: 20px;
-    max-width: 600px;
-    /* Animation chữ bay lên */
-    animation: fadeInUp 1s ease;
+/* Lớp phủ Edit */
+.edit-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; transition: opacity 0.3s ease; z-index: 100; cursor: pointer;
+}
+.landscape-container:hover .edit-overlay { opacity: 1; }
+
+.edit-btn {
+    padding: 10px 20px; background: white; border: none; border-radius: 30px;
+    font-family: 'Nunito', sans-serif; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; gap: 8px; transform: scale(0.9); transition: 0.2s;
+}
+.landscape-container:hover .edit-btn { transform: scale(1); }
+
+/* ĐỒI NÚI */
+.hills-container {
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 180px; z-index: 1;
+    pointer-events: none; /* Để click xuyên qua núi bấm vào nền được */
+}
+.hill {
+    position: absolute; background: var(--hill-green);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0; bottom: 0;
+}
+.hill-1 { width: 120%; height: 140px; left: -10%; transform: rotate(-2deg); }
+.hill-2 { width: 120%; height: 160px; right: -10%; background: #84b020; z-index: -1; }
+.sheep {
+    position: absolute; top: -30px; left: 20%; color: white; font-size: 20px;
+    animation: bounceSheep 3s infinite;
+}
+@keyframes bounceSheep { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-5px);} }
+
+/* NỘI DUNG */
+.hero-center-content {
+    position: absolute; top: 20%; left: 0; width: 100%;
+    text-align: center; z-index: 10; pointer-events: none;
+}
+.title-with-star {
+    display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;
+}
+.star-decor { font-size: 3rem; color: #5d6d8c; transform: rotate(-15deg); }
+.hero-center-content h1 {
+    font-family: 'Nunito', sans-serif; font-size: 2.2rem; margin: 0; color: #333;
+}
+.hero-text {
+    font-size: 1.4rem; font-family: 'Patrick Hand', cursive; color: #444;
 }
 
-.hero-title {
-    font-family: 'Dancing Script', cursive;
-    font-size: 5rem;
-    margin: 0;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+/* CON MÈO */
+.black-cat {
+    position: absolute; bottom: 10px; left: 30px; width: 100px; z-index: 20; pointer-events: none;
 }
-.hero-title span { font-family: 'Nunito', sans-serif; font-size: 3rem; text-transform: uppercase; letter-spacing: 5px; }
-.hero-desc { font-size: 1.2rem; margin-top: 20px; line-height: 1.6; opacity: 0.9; }
+.black-cat img { width: 100%; filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.3)); }
 
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-/* --- FOOTER & WRAPPER --- */
-.page-content-wrapper {
-    display: flex; flex-direction: column;
+.corner-star {
+    position: absolute; bottom: 30px; right: 30px; font-size: 2rem; color: #ccc;
 }
 
-.site-footer {
-    background: #fff; color: #5d54a4;
-    padding: 50px 20px 20px;
-}
-.footer-container {
-    max-width: 1200px; margin: 0 auto;
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;
-}
-.hotline-box {
-    background: linear-gradient(135deg, #a6c1ee 0%, #96e6a1 100%); /* Màu xanh lá/biển */
-    padding: 15px; border-radius: 10px; color: white; margin-top: 10px;
-}
+/* --- FOOTER & REST --- */
+.page-content-wrapper { display: flex; flex-direction: column; }
+.site-footer { background: #fff; padding: 50px 20px 20px; font-family: 'Nunito', sans-serif; }
+.footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+.hotline-box { background: linear-gradient(135deg, #a6c1ee 0%, #96e6a1 100%); padding: 15px; border-radius: 10px; color: white; margin-top: 10px; }
 .hotline-number { font-size: 1.5rem; font-weight: bold; display: block; }
-.footer-links { list-style: none; padding: 0; }
 .footer-links a { text-decoration: none; color: #555; display: block; margin-bottom: 10px; }
 .footer-bottom { text-align: center; margin-top: 40px; color: #888; border-top: 1px solid #eee; padding-top: 20px;}
 
-/* CSS CHO WIDGET CHAT (Copy lại phần cũ vào đây nếu bị mất) */
-#ai-widget-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
-#widget-trigger { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center;}
-#widget-trigger:hover { transform: scale(1.1); }
-.star-icon { display: inline-block; transition: 0.6s; }
-#widget-trigger:hover .star-icon { transform: rotate(360deg); }
-
-/* Chat Window */
-#chat-window { width: 330px; height: 450px; background: white; position: fixed; bottom: 90px; right: 20px; border-radius: 15px; box-shadow: 0 5px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; overflow: hidden; transform-origin: bottom right; transition: 0.3s; border: 1px solid #ddd; }
-#chat-window.hidden { transform: scale(0); opacity: 0; pointer-events: none; }
-#chat-window.maximized { width: 90vw; height: 85vh; z-index: 10000; border-radius: 20px; }
-.chat-header { padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: #fff; }
-.chat-body { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #f9f9f9; }
-.chat-footer { padding: 10px; display: flex; gap: 10px; border-top: 1px solid #eee; background: #fff; }
-.chat-footer input { flex: 1; padding: 10px; border-radius: 20px; border: 1px solid #ddd; outline: none; }
-#send-btn { border: none; background: none; color: #764ba2; font-size: 1.2rem; cursor: pointer; }
-
-.message { padding: 8px 12px; border-radius: 15px; max-width: 80%; font-size: 0.95rem; word-wrap: break-word; }
-.ai-msg { background: #e4e6eb; align-self: flex-start; color: #050505; }
-.user-msg { background: #764ba2; align-self: flex-end; color: white; }
+/* CHAT WIDGET */
+#ai-widget-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; gap: 15px; }
+#widget-trigger { width: 60px; height: 60px; border-radius: 50%; border: none; background: var(--primary-gradient); box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4); cursor: pointer; display: flex; justify-content: center; align-items: center; transition: transform 0.3s; }
+#widget-trigger:hover { transform: scale(1.1); } .star-icon { display: inline-block; transition: 0.6s; } #widget-trigger:hover .star-icon { transform: rotate(360deg); }
+#chat-window { width: 330px; height: 450px; background: white; border-radius: 18px; box-shadow: 0 5px 40px rgba(0,0,0,0.16); display: flex; flex-direction: column; overflow: hidden; transform-origin: bottom right; transition: 0.3s; border: 1px solid #e5e5e5; font-family: 'Nunito', sans-serif; }
+#chat-window.hidden { opacity: 0; transform: scale(0) translateY(20px); pointer-events: none; height: 0; margin-bottom: -20px; }
+#chat-window.maximized { width: 90vw; height: 85vh; z-index: 10000; border-radius: 25px; }
+.chat-header { padding: 12px 16px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
+.chat-body { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #fff; }
+.chat-footer { padding: 10px; border-top: 1px solid #f0f0f0; display: flex; gap: 8px; }
+.chat-footer input { flex: 1; border: none; background: #f0f2f5; padding: 10px 15px; border-radius: 20px; outline: none; }
+#send-btn { border: none; background: none; color: #764ba2; font-size: 18px; cursor: pointer; }
+.message { padding: 8px 12px; border-radius: 18px; max-width: 80%; font-size: 14px; word-wrap: break-word; }
+.ai-msg { align-self: flex-start; background: #f0f2f5; } .user-msg { align-self: flex-end; background: #764ba2; color: white; }
