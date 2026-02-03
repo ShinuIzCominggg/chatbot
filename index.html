@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khu Vườn Tâm Hồn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="left-sidebar" class="sidebar collapsed">
+        <button id="sidebar-toggle">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        
+        <div class="sidebar-content">
+            <h3>Menu</h3>
+            <div class="dummy-widget">Widget 1</div>
+            <div class="dummy-widget">Widget 2</div>
+        </div>
+    </div>
+
+    <div class="page-content-wrapper">
+        
+        <section class="hero-section">
+            
+            <div class="hero-image-part">
+                <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=2070&auto=format&fit=crop" alt="Background">
+            </div>
+
+            <div class="hero-text-part">
+                <div class="hero-content">
+                    <h1 class="hero-title">Khu Vườn <br><span>Bình Yên</span></h1>
+                    <p class="hero-desc">
+                        Nơi những âu lo dừng lại sau cánh cửa,<br>
+                        để tâm hồn được tưới mát bằng sự dịu dàng.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3 class="footer-logo"><i class="fa-solid fa-feather-pointed"></i> S-Net</h3>
+                    <p class="footer-desc">Nền tảng hỗ trợ sức khỏe tâm lý học đường.</p>
+                </div>
+                <div class="footer-col">
+                    <h4><i class="fa-solid fa-phone-volume"></i> Hotline</h4>
+                    <div class="hotline-box">
+                        <span class="hotline-number">111</span>
+                        <span class="hotline-desc">Tổng đài Bảo vệ Trẻ em</span>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Liên kết</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Về chúng tôi</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Địa chỉ</h4>
+                    <p>Trường THPT FPT Hà Nội</p>
+                </div>
+            </div>
+            <div class="footer-bottom">© 2026 Made with ❤️ for students.</div>
+        </footer>
+    </div>
+
+    <div id="ai-widget-container">
+        <div id="chat-window" class="hidden">
+            <div class="chat-header">
+                <div class="header-info"><span class="ai-name">tinh linh gemini</span></div>
+                <div class="mode-toggle-mini">
+                    <input type="checkbox" id="mode-checkbox">
+                    <label for="mode-checkbox" class="toggle-icon"><i class="fa-solid fa-gear"></i></label>
+                </div>
+                <button id="close-chat" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="chat-body custom-scroll" id="chat-box"></div>
+            <div class="chat-footer">
+                <input type="text" id="user-input" placeholder="nhắn gì đi..." autocomplete="off">
+                <button id="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button id="widget-trigger"><span class="star-icon" style="font-size: 32px;">🍁</span></button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

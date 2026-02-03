@@ -1,0 +1,148 @@
+:root {
+    --primary-blue: #a6c1ee; /* Màu xanh chủ đạo (sửa ở đây) */
+    --text-color: #5d54a4;
+}
+
+body {
+    margin: 0; font-family: 'Nunito', sans-serif;
+    overflow-x: hidden; /* Chặn cuộn ngang */
+}
+
+/* --- SIDEBAR BÊN TRÁI --- */
+.sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    background: white;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+    z-index: 1000; /* Cao hơn nền, thấp hơn nút chat */
+    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+/* Trạng thái đóng (Peak ra 1 tí) */
+.sidebar.collapsed { width: 20px; } /* M muốn peak nhiều hơn thì tăng số này */
+/* Trạng thái mở */
+.sidebar.expanded { width: 280px; }
+
+#sidebar-toggle {
+    position: absolute;
+    top: 50%; right: -15px; /* Để nút nằm ở mép */
+    transform: translateY(-50%);
+    width: 30px; height: 30px;
+    border-radius: 50%; border: none;
+    background: var(--text-color); color: white;
+    cursor: pointer;
+    z-index: 10;
+    display: flex; justify-content: center; align-items: center;
+    transition: 0.3s;
+}
+
+/* Khi mở ra thì xoay mũi tên */
+.sidebar.expanded #sidebar-toggle { transform: translateY(-50%) rotate(180deg); right: 10px; }
+.sidebar.collapsed:hover { width: 30px; } /* Hover vào mép thì thò ra xíu mời gọi */
+
+.sidebar-content {
+    padding: 20px; width: 280px; /* Cố định width nội dung để không bị co */
+    opacity: 0; transition: 0.2s;
+}
+.sidebar.expanded .sidebar-content { opacity: 1; transition-delay: 0.2s; }
+
+.dummy-widget {
+    background: #f0f2f5; padding: 10px; margin-top: 10px; border-radius: 8px;
+}
+
+/* --- HERO SECTION (GỐC) --- */
+.hero-section {
+    height: 100vh; /* Chiếm full màn hình đầu tiên */
+    width: 100%;
+    display: flex; /* Chia cột 40-60 */
+    position: relative;
+}
+
+/* Phần Ảnh (40%) */
+.hero-image-part {
+    flex: 0 0 40%; /* Cố định 40% */
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.hero-image-part img {
+    width: 100%; height: 100%;
+    object-fit: cover; /* Ảnh tự cắt cho vừa khung */
+}
+
+/* Phần Màu Xanh & Chữ (60%) */
+.hero-text-part {
+    flex: 0 0 60%; /* Cố định 60% */
+    height: 100%;
+    background-color: var(--primary-blue); /* Màu xanh chỉnh được */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+/* Nội dung chữ */
+.hero-content {
+    color: white;
+    padding: 20px;
+    max-width: 600px;
+    /* Animation chữ bay lên */
+    animation: fadeInUp 1s ease;
+}
+
+.hero-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 5rem;
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.hero-title span { font-family: 'Nunito', sans-serif; font-size: 3rem; text-transform: uppercase; letter-spacing: 5px; }
+.hero-desc { font-size: 1.2rem; margin-top: 20px; line-height: 1.6; opacity: 0.9; }
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+/* --- FOOTER & WRAPPER --- */
+.page-content-wrapper {
+    display: flex; flex-direction: column;
+}
+
+.site-footer {
+    background: #fff; color: #5d54a4;
+    padding: 50px 20px 20px;
+}
+.footer-container {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;
+}
+.hotline-box {
+    background: linear-gradient(135deg, #a6c1ee 0%, #96e6a1 100%); /* Màu xanh lá/biển */
+    padding: 15px; border-radius: 10px; color: white; margin-top: 10px;
+}
+.hotline-number { font-size: 1.5rem; font-weight: bold; display: block; }
+.footer-links { list-style: none; padding: 0; }
+.footer-links a { text-decoration: none; color: #555; display: block; margin-bottom: 10px; }
+.footer-bottom { text-align: center; margin-top: 40px; color: #888; border-top: 1px solid #eee; padding-top: 20px;}
+
+/* CSS CHO WIDGET CHAT (Copy lại phần cũ vào đây nếu bị mất) */
+#ai-widget-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
+#widget-trigger { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center;}
+#widget-trigger:hover { transform: scale(1.1); }
+.star-icon { display: inline-block; transition: 0.6s; }
+#widget-trigger:hover .star-icon { transform: rotate(360deg); }
+
+/* Chat Window */
+#chat-window { width: 330px; height: 450px; background: white; position: fixed; bottom: 90px; right: 20px; border-radius: 15px; box-shadow: 0 5px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; overflow: hidden; transform-origin: bottom right; transition: 0.3s; border: 1px solid #ddd; }
+#chat-window.hidden { transform: scale(0); opacity: 0; pointer-events: none; }
+#chat-window.maximized { width: 90vw; height: 85vh; z-index: 10000; border-radius: 20px; }
+.chat-header { padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: #fff; }
+.chat-body { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #f9f9f9; }
+.chat-footer { padding: 10px; display: flex; gap: 10px; border-top: 1px solid #eee; background: #fff; }
+.chat-footer input { flex: 1; padding: 10px; border-radius: 20px; border: 1px solid #ddd; outline: none; }
+#send-btn { border: none; background: none; color: #764ba2; font-size: 1.2rem; cursor: pointer; }
+
+.message { padding: 8px 12px; border-radius: 15px; max-width: 80%; font-size: 0.95rem; word-wrap: break-word; }
+.ai-msg { background: #e4e6eb; align-self: flex-start; color: #050505; }
+.user-msg { background: #764ba2; align-self: flex-end; color: white; }
